@@ -1,15 +1,15 @@
 # Vite Electron Builder Boilerplate for Svelte
 
-This is a [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder) fork template for [Svelte](https://svelte.dev/).
-
-> [!NOTE]  
-> This is a fork for the Svelte component framework. For Vite Electron Builder for SvelteKit take a look at https://github.com/van100j/sveltekit-vite-electron-builder
+> [!NOTE]
+> This is a [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder) fork template for [Svelte](https://svelte.dev/). For the SvelteKit fork take a look at [Vite Electron Builder for SvelteKit](https://github.com/van100j/sveltekit-vite-electron-builder)
 
 
 ## Get started
 
+### The easy way
 You can start by clicking the **[Use this template](https://github.com/van100j/svelte-vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
 
+### The harder way
 Alternatively, and also to illustrate the steps taken to get to this fork, you can also do the following of the original [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder):
 
 1. Remove `packages/renderer` directory
