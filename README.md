@@ -1,3 +1,99 @@
+# Vite Electron Builder Boilerplate for Svelte
+
+This is a [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder) fork template for [Svelte](https://svelte.dev/).
+
+> [!NOTE]  
+> This is a fork for the Svelte component framework. For Vite Electron Builder for SvelteKit take a look at https://github.com/van100j/sveltekit-vite-electron-builder
+
+
+## Get started
+
+You can start by clicking the **[Use this template](https://github.com/van100j/svelte-vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
+
+Alternatively, and also to illustrate the steps taken to get to this fork, you can also do the following of the original [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder):
+
+1. Remove `packages/renderer` directory
+  - Run `rm -rf packages/renderer`
+2. Run `npm init vite` and follow the steps
+  - For `Project name: ›` enter `packages/renderer`
+  - For `Package name: ›` enter `svelte` (or whatever you wish)
+  - For `Select a framework: ›` choose `Svelte`
+  - For `Select a variant: ›` choose `Typescript`
+
+3. Run `npm install`
+4. Get all devDependencies in `packages/renderer/package.json` and install them in the root dir
+  - In my case `npm install @sveltejs/vite-plugin-svelte @tsconfig/svelte svelte svelte-check tslib typescript vite --save-dev`
+
+5. Rename `packages/renderer/vite.config.ts` to `packages/renderer/vite.config.mjs` and update `vite.config.ts` references to `vite.config.mjs` in files accordingly:
+  - In `packages/renderer/tsconfig.node.json`
+  - In `scripts/watch.mjs`
+6. Update `packages/renderer/vite.config.mjs` with the following:
+  <details>
+
+  ```js
+  import {svelte} from '@sveltejs/vite-plugin-svelte'
+  import {chrome} from '../../.electron-vendors.cache.json';
+  import {renderer} from 'unplugin-auto-expose';
+  import {join} from 'node:path';
+  import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+
+  const PACKAGE_ROOT = __dirname;
+  const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
+
+  /**
+   * @type {import('vite').UserConfig}
+   * @see https://vitejs.dev/config/
+   */
+  const config = {
+    mode: process.env.MODE,
+    root: PACKAGE_ROOT,
+    envDir: PROJECT_ROOT,
+    base: '',
+    server: {
+      fs: {
+        strict: true,
+      },
+    },
+    build: {
+      sourcemap: true,
+      target: `chrome${chrome}`,
+      outDir: 'dist',
+      assetsDir: '.',
+      rollupOptions: {
+        input: join(PACKAGE_ROOT, 'index.html'),
+      },
+      emptyOutDir: true,
+      reportCompressedSize: false,
+    },
+    test: {
+      environment: 'happy-dom',
+    },
+    plugins: [
+      svelte(),
+      renderer.vite({
+        preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
+      }),
+      injectAppVersion(),
+    ],
+  };
+
+  export default config;
+  ```
+
+  <summary>View code</summary>
+  </details>
+
+<br>
+
+7. Start developing, building, compiling...
+  - Run `npm run watch`
+  - Run `npm run build`
+  - Run `npm run compile`
+
+<br>
+
+> 👇 The original [vite-electron-builder](https://github.com/cawa-93/vite-electron-builder) readme
+
 [![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://stand-with-ukraine.pp.ua)
 
 ---
